@@ -38,9 +38,20 @@ namespace ProductMicroservice.Controllers
         {
             using (var scope = new TransactionScope())
             {
-                _productRepository.InsertProduct(product);
+                var newProduct = product;
+                newProduct.Id = 0;
+                newProduct.Name = product.Name;
+                newProduct.Description = product.Description;
+                newProduct.Price = product.Price;
+                newProduct.CategoryId = product.CategoryId;
+                newProduct.CreatedDate = DateTime.Now;
+                newProduct.UpdatedDate = DateTime.Now;
+
+                var productID = _productRepository.InsertProduct(newProduct);
+                product.Id = productID;
+
                 scope.Complete();
-                return CreatedAtAction(nameof(Get), new { id = product.Id }, product);
+                return CreatedAtAction(nameof(Get), new { id = productID }, newProduct);
             }
         }
 

@@ -8,7 +8,7 @@ namespace ProductMicroservice.Repository
 
         Product GetProductByID(int productId);
 
-        void InsertProduct(Product product);
+        int InsertProduct(Product product);
 
         void DeleteProduct(int productId);
 

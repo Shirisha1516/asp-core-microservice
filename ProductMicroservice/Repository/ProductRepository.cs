@@ -32,10 +32,11 @@ namespace ProductMicroservice.Repository
             return _dbContext.Products.ToList();
         }
 
-        public void InsertProduct(Product product)
+        public int InsertProduct(Product product)
         {
-            _dbContext.Add(product);
+            var result = _dbContext.Add(product);
             Save();
+            return result.Entity.Id;
         }
 
         public void Save()
